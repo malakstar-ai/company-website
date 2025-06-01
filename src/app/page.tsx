@@ -17,7 +17,7 @@ export default function HomePage() {
   // Smooth scroll implementation
   useEffect(() => {
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener("click", function (e: Event) {
+      anchor.addEventListener("click", function (e) {
         e.preventDefault()
         const href = (e.currentTarget as HTMLAnchorElement).getAttribute("href")
         if (!href) return
@@ -47,9 +47,9 @@ export default function HomePage() {
       {/* Client Logo Strip */}
       <ClientLogoStrip />
 
-      {/* How It Works Section - Light */}
-      <section id="how-it-works" className="relative bg-white">
-        <BackgroundPattern variant="light" />
+      {/* How It Works Section - Dark */}
+      <section id="how-it-works" className="relative bg-[#1A1A1A]">
+        <BackgroundPattern variant="dark" />
         <HowItWorksSection />
       </section>
 
@@ -59,9 +59,9 @@ export default function HomePage() {
         <UseCasesSection />
       </section>
 
-      {/* Why Choose Us Section - Light */}
-      <section id="why-choose-us" className="relative bg-white">
-        <BackgroundPattern variant="light" />
+      {/* Why Choose Us Section - Dark */}
+      <section id="why-choose-us" className="relative bg-[#1A1A1A]">
+        <BackgroundPattern variant="dark" />
         <WhyChooseUsSection />
       </section>
 
@@ -71,9 +71,9 @@ export default function HomePage() {
         <AboutFounderSection />
       </section>
 
-      {/* Contact Section - Light */}
-      <section id="contact" className="relative bg-white">
-        <BackgroundPattern variant="light" />
+      {/* Contact Section - Dark */}
+      <section id="contact" className="relative bg-[#1A1A1A]">
+        <BackgroundPattern variant="dark" />
         <ContactSection />
       </section>
 

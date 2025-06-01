@@ -5,7 +5,9 @@ import { Search, Cpu, Settings } from "lucide-react"
 
 export function HowItWorksSection() {
   const [activeStep, setActiveStep] = useState(0)
+  const [isHydrated, setIsHydrated] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
+  const cardsRef = useRef<HTMLDivElement>(null)
 
   const steps = [
     {
@@ -19,6 +21,7 @@ export function HowItWorksSection() {
         "Workflow mapping and bottleneck detection",
         "Data flow assessment and optimization planning",
       ],
+      color: "#D4AF37"
     },
     {
       number: "02",
@@ -31,6 +34,7 @@ export function HowItWorksSection() {
         "Intelligent workflow design and optimization",
         "Security and compliance framework implementation",
       ],
+      color: "#3D9EFF"
     },
     {
       number: "03",
@@ -43,120 +47,168 @@ export function HowItWorksSection() {
         "Continuous performance monitoring",
         "Iterative optimization based on business outcomes",
       ],
+      color: "#10B981"
     },
   ]
 
+  // Hydration effect
   useEffect(() => {
-    const handleScroll = () => {
+    setIsHydrated(true)
+  }, [])
+
+  // Set up intersection observers for each step
+  useEffect(() => {
+    if (!isHydrated || !sectionRef.current) return
+
+    // Wait for next tick to ensure DOM is ready
+    const timeoutId = setTimeout(() => {
       if (!sectionRef.current) return
 
-      const rect = sectionRef.current.getBoundingClientRect()
-      const sectionHeight = rect.height
-      const sectionTop = rect.top
-      const windowHeight = window.innerHeight
+      // Create step elements
+      const stepElements = Array.from(sectionRef.current.querySelectorAll(".step-card"))
 
-      // Calculate how far we've scrolled into the section
-      const scrollPosition = windowHeight - sectionTop
-      const scrollPercentage = Math.max(0, Math.min(1, scrollPosition / (sectionHeight * 0.8)))
+      if (stepElements.length === 0) return
 
-      // Map scroll percentage to step index
-      const stepIndex = Math.min(Math.floor(scrollPercentage * steps.length), steps.length - 1)
-      setActiveStep(stepIndex)
-    }
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const index = stepElements.findIndex((el) => el === entry.target)
+              if (index !== -1) {
+                setActiveStep(index)
+              }
+            }
+          })
+        },
+        {
+          root: null,
+          rootMargin: "-50% 0px -50% 0px",
+          threshold: 0.1,
+        },
+      )
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [steps.length])
+      // Observe each step element
+      stepElements.forEach((element) => {
+        observer.observe(element)
+      })
+
+      return () => {
+        stepElements.forEach((element) => {
+          observer.unobserve(element)
+        })
+      }
+    }, 100)
+
+    return () => clearTimeout(timeoutId)
+  }, [isHydrated])
 
   return (
-    <div ref={sectionRef} className="container mx-auto px-6 py-24 relative z-10">
-      {/* Section Header */}
-      <div className="text-center mb-24">
-        <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-black/5">
-          <div className="w-1.5 h-1.5 rounded-full bg-gold" />
-          <span className="text-xs font-medium text-black/70">Our Process</span>
+    <section className="relative bg-[#1A1A1A]">
+      <div ref={sectionRef} className="relative z-10">
+        {/* Fixed Header */}
+        <div className="sticky top-0 pt-24 pb-8 bg-[#1A1A1A] z-20">
+          <div className="container mx-auto px-6">
+            <div className="text-center">
+              <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-[#D4AF37]/20 bg-[#D4AF37]/10">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]" />
+                <span className="text-xs font-medium text-[#D4AF37]">Our Process</span>
+              </div>
+
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+                How It <span className="text-[#D4AF37]">Works</span>
+              </h2>
+
+              <p className="text-lg text-white/60 max-w-2xl mx-auto">
+                A proven methodology that transforms your business operations with intelligent automation
+              </p>
+            </div>
+          </div>
         </div>
 
-        <h2 className="text-4xl font-light text-black mb-6">How It Works</h2>
+        {/* Step Indicators - Fixed on the left */}
+        {isHydrated && (
+          <div className="fixed left-8 top-1/2 transform -translate-y-1/2 z-30 hidden lg:block">
+            <div className="flex flex-col gap-8">
+              {steps.map((step, index) => (
+                <div
+                  key={index}
+                  className={`w-2 h-16 rounded-full transition-all duration-500`}
+                  style={{
+                    backgroundColor: index === activeStep ? step.color : "#333",
+                    opacity: index === activeStep ? 1 : 0.5,
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        )}
 
-        <p className="text-lg text-black/60 max-w-2xl mx-auto">
-          A proven methodology that transforms your business operations with intelligent automation
-        </p>
-      </div>
-
-      {/* Stacked Cards */}
-      <div className="max-w-4xl mx-auto relative min-h-[600px]">
-        {steps.map((step, index) => (
-          <div
-            key={index}
-            className={`absolute inset-x-0 transition-all duration-700 ease-in-out ${
-              index === activeStep
-                ? "opacity-100 translate-y-0 z-30"
-                : index < activeStep
-                  ? "opacity-0 -translate-y-16 z-20"
-                  : "opacity-0 translate-y-16 z-10"
-            }`}
-            style={{
-              transitionDelay: `${Math.abs(index - activeStep) * 100}ms`,
-            }}
-          >
+        {/* Cards - Each in their own full-height section */}
+        <div ref={cardsRef} className="relative">
+          {steps.map((step, index) => (
             <div
-              className="p-10 rounded-2xl bg-white shadow-xl border border-black/5"
-              style={{
-                boxShadow: index === activeStep ? `0 10px 50px rgba(0, 0, 0, 0.08)` : "",
-              }}
+              key={index}
+              className="step-card min-h-screen flex items-center justify-center py-24"
+              id={`step-${index}`}
             >
-              <div className="flex flex-col md:flex-row gap-10">
-                {/* Left Column - Icon and Number */}
-                <div className="md:w-1/3">
-                  <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6 bg-gold/10">
-                    <div className="text-gold">{step.icon}</div>
-                  </div>
-
-                  <div className="flex items-baseline gap-3 mb-4">
-                    <span className="text-5xl font-light text-gold">{step.number}</span>
-                    <div className="w-12 h-px bg-black/10" />
-                  </div>
-
-                  <h3 className="text-2xl font-medium text-black mb-2">{step.title}</h3>
-                  <p className="text-black/60">{step.description}</p>
-                </div>
-
-                {/* Right Column - Details */}
-                <div className="md:w-2/3">
-                  <div className="space-y-6">
-                    {step.details.map((detail, detailIndex) => (
-                      <div key={detailIndex} className="flex items-start gap-4">
-                        <div className="w-6 h-6 rounded-full flex items-center justify-center mt-1 flex-shrink-0 bg-gold/10">
-                          <div className="w-1.5 h-1.5 rounded-full bg-gold" />
+              <div className="container mx-auto px-6">
+                <div className="max-w-4xl mx-auto">
+                  <div className="p-10 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 shadow-xl">
+                    <div className="flex flex-col md:flex-row gap-10">
+                      {/* Left Column - Icon and Number */}
+                      <div className="md:w-1/3">
+                        <div 
+                          className="w-16 h-16 rounded-full flex items-center justify-center mb-6 border border-white/10"
+                          style={{ backgroundColor: `${step.color}20` }}
+                        >
+                          <div style={{ color: step.color }}>{step.icon}</div>
                         </div>
-                        <p className="text-black/70">{detail}</p>
+
+                        <div className="flex items-baseline gap-3 mb-4">
+                          <span className="text-5xl font-light" style={{ color: step.color }}>
+                            {step.number}
+                          </span>
+                          <div className="w-12 h-px bg-white/20" />
+                        </div>
+
+                        <h3 className="text-2xl font-medium text-white mb-2">{step.title}</h3>
+                        <p className="text-white/60">{step.description}</p>
                       </div>
-                    ))}
+
+                      {/* Right Column - Details */}
+                      <div className="md:w-2/3">
+                        <div className="space-y-6">
+                          {step.details.map((detail, detailIndex) => (
+                            <div key={detailIndex} className="flex items-start gap-4">
+                              <div 
+                                className="w-6 h-6 rounded-full flex items-center justify-center mt-1 flex-shrink-0 border border-white/10"
+                                style={{ backgroundColor: `${step.color}20` }}
+                              >
+                                <div 
+                                  className="w-1.5 h-1.5 rounded-full" 
+                                  style={{ backgroundColor: step.color }}
+                                />
+                              </div>
+                              <p className="text-white/70">{detail}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
-
-        {/* Step Indicators */}
-        <div className="absolute -left-4 top-1/2 transform -translate-y-1/2 flex flex-col gap-8">
-          {steps.map((_, index) => (
-            <div
-              key={index}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === activeStep ? "scale-150 bg-gold" : "scale-100 bg-black/20"
-              }`}
-            />
           ))}
         </div>
-      </div>
 
-      {/* Bottom Text */}
-      <div className="text-center mt-24">
-        <p className="text-black/40 italic">Scroll to explore our process</p>
+        {/* Continue Indicator */}
+        <div className="container mx-auto px-6 pb-16">
+          <div className="text-center">
+            <p className="text-white/40 italic">Continue scrolling to explore our services</p>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   )
 }
