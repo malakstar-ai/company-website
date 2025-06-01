@@ -54,13 +54,13 @@ export function Navigation() {
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-white/80 hover:text-gold transition-colors duration-300 text-sm font-light"
+                  className="text-white/80 hover:text-gold transition-colors duration-300 text-sm font-light focus:outline-none focus:text-gold"
                 >
                   {link.name}
                 </a>
               ))}
               <a href="#contact">
-                <Button size="sm" variant="outline" className="ml-4 border-gold text-gold hover:bg-gold hover:text-black">
+                <Button size="sm" variant="outline" className="ml-4 border-gold text-gold hover:bg-gold hover:text-black focus:outline-none focus:ring-0">
                   Book a Call
                 </Button>
               </a>
@@ -68,7 +68,7 @@ export function Navigation() {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden text-white"
+              className="md:hidden text-white focus:outline-none focus:text-gold"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle menu"
             >
@@ -89,14 +89,14 @@ export function Navigation() {
             <a
               key={link.name}
               href={link.href}
-              className="text-white text-2xl font-light hover:text-gold transition-colors duration-300"
+              className="text-white text-2xl font-light hover:text-gold transition-colors duration-300 focus:outline-none focus:text-gold"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               {link.name}
             </a>
           ))}
           <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
-            <Button size="lg" variant="outline" className="mt-8 border-gold text-gold hover:bg-gold hover:text-black">
+            <Button size="lg" variant="outline" className="mt-8 border-gold text-gold hover:bg-gold hover:text-black focus:outline-none focus:ring-0">
               Book a Call
             </Button>
           </a>

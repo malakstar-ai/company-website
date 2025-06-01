@@ -184,13 +184,6 @@ export function HowItWorksSection() {
             </div>
           ))}
         </div>
-
-        {/* Continue Indicator */}
-        <div className="container mx-auto px-6 pb-16">
-          <div className="text-center">
-            <p className="text-white/40 italic">Continue scrolling to explore our services</p>
-          </div>
-        </div>
       </div>
     </section>
   )

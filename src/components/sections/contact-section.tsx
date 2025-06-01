@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { Button } from "@/src/components/ui/button"
 import { Input } from "@/src/components/ui/input"
 import { Textarea } from "@/src/components/ui/textarea"
-import { ArrowRight, CheckCircle, Phone, Mail, MapPin, ArrowLeft } from "lucide-react"
+import { ArrowRight, CheckCircle, Phone, Mail, MapPin, ArrowLeft, Loader } from "lucide-react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -19,7 +19,7 @@ const step1Schema = z.object({
 
 const step2Schema = z.object({
   email: z.string().email({ message: "Please enter a valid email" }),
-  phone: z.string().optional(),
+  phone: z.string({ message: "Please use 00 before typing your country code and phone number. For example, 0092 300 1234567"}).optional(),
 })
 
 const step3Schema = z.object({
@@ -42,8 +42,11 @@ const step6Schema = z.object({
 })
 
 export function ContactSection() {
-  const [isVisible, setIsVisible] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
+  const [isVisible, setIsVisible] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [submitMessage, setSubmitMessage] = useState('')
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -58,7 +61,7 @@ export function ContactSection() {
     urgency: "",
   })
 
-  // Form for step 1
+  // Forms for each step
   const step1Form = useForm<z.infer<typeof step1Schema>>({
     resolver: zodResolver(step1Schema),
     defaultValues: {
@@ -67,7 +70,6 @@ export function ContactSection() {
     },
   })
 
-  // Form for step 2
   const step2Form = useForm<z.infer<typeof step2Schema>>({
     resolver: zodResolver(step2Schema),
     defaultValues: {
@@ -76,7 +78,6 @@ export function ContactSection() {
     },
   })
 
-  // Form for step 3
   const step3Form = useForm<z.infer<typeof step3Schema>>({
     resolver: zodResolver(step3Schema),
     defaultValues: {
@@ -155,16 +156,82 @@ export function ContactSection() {
     setCurrentStep(6)
   }
 
-  const onStep6Submit = (data: z.infer<typeof step6Schema>) => {
-    setFormData({ ...formData, ...data })
-    setCurrentStep(7)
+  const onStep6Submit = async (data: z.infer<typeof step6Schema>) => {
+    const finalFormData = { ...formData, ...data }
+    setFormData(finalFormData)
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+
+    try {
+      // Prepare data for submission to Google Sheets
+      const submissionData = {
+        fullName: `${finalFormData.firstName} ${finalFormData.lastName}`.trim(),
+        email: finalFormData.email,
+        phone: finalFormData.phone || '',
+        companyName: finalFormData.company,
+        companySize: finalFormData.companySize,
+        role: finalFormData.role,
+        aiChallenges: finalFormData.aiChallenges,
+        currentProcess: finalFormData.industry, // Using industry field for current process
+        biggestChallenge: finalFormData.aiChallenges, // Using AI challenges as biggest challenge
+        budget: finalFormData.budget,
+        urgency: finalFormData.urgency,
+      }
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submissionData),
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        setSubmitStatus('success')
+        setSubmitMessage(result.message || 'Thank you! Your information has been submitted successfully.')
+        setCurrentStep(7)
+      } else {
+        setSubmitStatus('error')
+        setSubmitMessage(result.message || 'There was an error submitting your information. Please try again.')
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      setSubmitStatus('error')
+      setSubmitMessage('There was an error submitting your information. Please check your connection and try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
-  // Handle final submission
+  // Handle final submission (this is now just for the "Submit Another Request" button)
   const onFinalSubmit = () => {
-    console.log("Form submitted with data:", formData)
-    // Here you would typically send the data to your backend
-    alert("Form submitted successfully!")
+    // Reset form and start over
+    setCurrentStep(1)
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      company: "",
+      role: "",
+      aiChallenges: "",
+      industry: "",
+      companySize: "",
+      budget: "",
+      urgency: "",
+    })
+    setSubmitStatus('idle')
+    setSubmitMessage('')
+    
+    // Reset all forms
+    step1Form.reset()
+    step2Form.reset()
+    step3Form.reset()
+    step4Form.reset()
+    step5Form.reset()
+    step6Form.reset()
   }
 
   // Go back to previous step
@@ -315,7 +382,7 @@ export function ContactSection() {
                         <FormLabel className="text-white/80">Phone Number (Optional)</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="+1 (555) 123-4567"
+                            placeholder="0092 12345678"
                             className="bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-gold focus:ring-gold"
                             {...field}
                           />
@@ -500,13 +567,13 @@ export function ContactSection() {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent className="bg-black/90 border-white/10 text-white">
-                            <SelectItem value="technology">Technology</SelectItem>
-                            <SelectItem value="finance">Finance</SelectItem>
-                            <SelectItem value="healthcare">Healthcare</SelectItem>
-                            <SelectItem value="retail">Retail</SelectItem>
-                            <SelectItem value="manufacturing">Manufacturing</SelectItem>
-                            <SelectItem value="education">Education</SelectItem>
-                            <SelectItem value="other">Other</SelectItem>
+                            <SelectItem value="technology" className="focus:bg-gold/20 focus:text-white">Technology</SelectItem>
+                            <SelectItem value="finance" className="focus:bg-gold/20 focus:text-white">Finance</SelectItem>
+                            <SelectItem value="healthcare" className="focus:bg-gold/20 focus:text-white">Healthcare</SelectItem>
+                            <SelectItem value="retail" className="focus:bg-gold/20 focus:text-white">Retail</SelectItem>
+                            <SelectItem value="manufacturing" className="focus:bg-gold/20 focus:text-white">Manufacturing</SelectItem>
+                            <SelectItem value="education" className="focus:bg-gold/20 focus:text-white">Education</SelectItem>
+                            <SelectItem value="other" className="focus:bg-gold/20 focus:text-white">Other</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage className="text-red-400" />
@@ -527,11 +594,11 @@ export function ContactSection() {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent className="bg-black/90 border-white/10 text-white">
-                            <SelectItem value="1-10">1-10 employees</SelectItem>
-                            <SelectItem value="11-50">11-50 employees</SelectItem>
-                            <SelectItem value="51-200">51-200 employees</SelectItem>
-                            <SelectItem value="201-500">201-500 employees</SelectItem>
-                            <SelectItem value="501+">501+ employees</SelectItem>
+                            <SelectItem value="1-10" className="focus:bg-gold/20 focus:text-white">1-10 employees</SelectItem>
+                            <SelectItem value="11-50" className="focus:bg-gold/20 focus:text-white">11-50 employees</SelectItem>
+                            <SelectItem value="51-200" className="focus:bg-gold/20 focus:text-white">51-200 employees</SelectItem>
+                            <SelectItem value="201-500" className="focus:bg-gold/20 focus:text-white">201-500 employees</SelectItem>
+                            <SelectItem value="501+" className="focus:bg-gold/20 focus:text-white">501+ employees</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage className="text-red-400" />
@@ -588,9 +655,9 @@ export function ContactSection() {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent className="bg-black/90 border-white/10 text-white">
-                            <SelectItem value="$1k-$5k">$1k-$5k</SelectItem>
-                            <SelectItem value="$6k-$10k">$6k-$10k</SelectItem>
-                            <SelectItem value="$10k+">$10k+</SelectItem>
+                            <SelectItem value="$1k-$5k" className="focus:bg-gold/20 focus:text-white">$1k-$5k</SelectItem>
+                            <SelectItem value="$6k-$10k" className="focus:bg-gold/20 focus:text-white">$6k-$10k</SelectItem>
+                            <SelectItem value="$10k+" className="focus:bg-gold/20 focus:text-white">$10k+</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage className="text-red-400" />
@@ -611,9 +678,9 @@ export function ContactSection() {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent className="bg-black/90 border-white/10 text-white">
-                            <SelectItem value="very urgent">Very urgent</SelectItem>
-                            <SelectItem value="want to implement in the next 1-3 months">Want to implement in the next 1-3 months</SelectItem>
-                            <SelectItem value="simply want to understand whats possible">Simply want to understand what's possible</SelectItem>
+                            <SelectItem value="very urgent" className="focus:bg-gold/20 focus:text-white">Very urgent</SelectItem>
+                            <SelectItem value="want to implement in the next 1-3 months" className="focus:bg-gold/20 focus:text-white">Want to implement in the next 1-3 months</SelectItem>
+                            <SelectItem value="simply want to understand whats possible" className="focus:bg-gold/20 focus:text-white">Simply want to understand what's possible</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage className="text-red-400" />
@@ -626,17 +693,28 @@ export function ContactSection() {
                       type="button"
                       variant="outline"
                       onClick={goToPreviousStep}
-                      className="flex-1 group px-6 py-6 text-sm font-medium bg-transparent border border-white/20 text-white hover:bg-white/5 rounded-full transition-all duration-300"
+                      disabled={isSubmitting}
+                      className="flex-1 group px-6 py-6 text-sm font-medium bg-transparent border border-white/20 text-white hover:bg-white/5 rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <ArrowLeft className="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-1" />
                       Back
                     </Button>
                     <Button
                       type="submit"
-                      className="flex-1 group px-6 py-6 text-sm font-medium bg-gold hover:bg-gold/90 text-black rounded-full transition-all duration-300 hover:shadow-lg"
+                      disabled={isSubmitting}
+                      className="flex-1 group px-6 py-6 text-sm font-medium bg-gold hover:bg-gold/90 text-black rounded-full transition-all duration-300 hover:shadow-lg disabled:opacity-75 disabled:cursor-not-allowed"
                     >
-                      Continue
-                      <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+                      {isSubmitting ? (
+                        <>
+                          <Loader className="mr-2 w-4 h-4 animate-spin" />
+                          Submitting...
+                        </>
+                      ) : (
+                        <>
+                          Submit
+                          <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+                        </>
+                      )}
                     </Button>
                   </div>
                 </form>
@@ -658,7 +736,7 @@ export function ContactSection() {
                   <CheckCircle className="w-16 h-16 text-[#10B981] mx-auto mb-4" />
                   <h3 className="text-3xl font-light text-white mb-4">Thank you for reaching out!</h3>
                   <p className="text-lg text-white/60 max-w-md mx-auto mb-6">
-                    We've received your information and will get back to you within 24 hours to discuss your AI transformation journey.
+                    {submitMessage}
                   </p>
                 </div>
 
@@ -694,7 +772,7 @@ export function ContactSection() {
 
                 <Button
                   type="button"
-                  onClick={() => window.location.reload()}
+                  onClick={onFinalSubmit}
                   className="group px-8 py-6 text-sm font-medium bg-gold hover:bg-gold/90 text-black rounded-full transition-all duration-300 hover:shadow-lg"
                 >
                   Submit Another Request

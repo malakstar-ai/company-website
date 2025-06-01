@@ -10,9 +10,37 @@ export function HeroSection() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [previousIndex, setPreviousIndex] = useState(-1)
   const [isAnimating, setIsAnimating] = useState(false)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLSpanElement>(null)
+  const measureRef = useRef<HTMLSpanElement>(null)
+  
+  // Pre-calculated widths for all texts
+  const [textWidths, setTextWidths] = useState<number[]>([])
+  const [dynamicWidth, setDynamicWidth] = useState("auto")
 
   const rotatingTexts = ["Increase Sales", "Boost Marketing", "Optimize Operations", "Scale Delivery"]
+
+  // Pre-calculate all text widths on mount for smoother animations
+  useEffect(() => {
+    if (measureRef.current) {
+      const widths: number[] = []
+      const measureElement = measureRef.current
+      
+      rotatingTexts.forEach((text) => {
+        measureElement.textContent = text
+        widths.push(measureElement.offsetWidth)
+      })
+      
+      setTextWidths(widths)
+      setDynamicWidth(`${widths[0]}px`) // Set initial width
+    }
+  }, [])
+
+  // Update width when active index changes
+  useEffect(() => {
+    if (textWidths.length > 0) {
+      setDynamicWidth(`${textWidths[activeIndex]}px`)
+    }
+  }, [activeIndex, textWidths])
 
   useEffect(() => {
     setIsVisible(true)
@@ -31,14 +59,18 @@ export function HeroSection() {
     return () => clearInterval(interval)
   }, [activeIndex])
 
-  // Dynamic width based on current text
-  const currentText = rotatingTexts[activeIndex]
-  const dynamicWidth = currentText.length * 0.55 + "em" // Reduced from 0.65 to 0.55
-
   return (
     <div className="relative z-10 flex items-center justify-center min-h-screen px-6">
       {/* AI Background Animation */}
       <AIBackgroundAnimation />
+
+      {/* Hidden element for measuring text widths */}
+      <span
+        ref={measureRef}
+        className="absolute opacity-0 pointer-events-none text-4xl md:text-5xl lg:text-6xl font-medium"
+        style={{ top: "-9999px" }}
+        aria-hidden="true"
+      />
 
       <div className="max-w-4xl mx-auto text-center relative z-10">
         {/* Badge */}
@@ -51,7 +83,7 @@ export function HeroSection() {
           <span className="text-xs font-medium text-white/80 tracking-wide">Malak Star AI</span>
         </div>
 
-        {/* Clean Text Animation */}
+        {/* Enhanced Text Animation */}
         <h1
           className={`text-4xl md:text-5xl lg:text-6xl font-light text-white mb-8 leading-tight transition-all duration-1000 delay-200 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -60,10 +92,11 @@ export function HeroSection() {
           Custom AI Agents That{" "}
           <span
             ref={containerRef}
-            className="inline-block relative overflow-hidden align-top transition-all duration-700 ease-in-out"
+            className="inline-block relative align-top transition-all duration-500 ease-in-out"
             style={{
               width: dynamicWidth,
-              height: "1.2em",
+              minHeight: "1em", // ensures height is there for absolute elements
+              display: "inline-block",
             }}
           >
             {rotatingTexts.map((text, index) => (
@@ -73,11 +106,12 @@ export function HeroSection() {
                   index === activeIndex && !isAnimating
                     ? "top-0 opacity-100"
                     : index === previousIndex && isAnimating
-                      ? "-top-full opacity-0"
-                      : index === activeIndex && isAnimating
-                        ? "top-0 opacity-100"
-                        : "top-full opacity-0"
+                    ? "-top-full opacity-0"
+                    : index === activeIndex && isAnimating
+                    ? "top-0 opacity-100"
+                    : "top-full opacity-0"
                 }`}
+                style={{ whiteSpace: "nowrap" }} // prevents text wrapping
               >
                 {text}
               </span>

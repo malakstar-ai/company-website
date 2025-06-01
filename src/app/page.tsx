@@ -1,8 +1,11 @@
 "use client"
 
 import { useEffect } from "react"
+import { BackgroundPattern } from "@/src/components/ui/background-pattern"
+import { Navigation } from "@/src/components/ui/navigation"
 import { HeroSection } from "@/src/components/sections/hero-section"
 import { SocialProofSection } from "@/src/components/sections/social-proof-section"
+import { SectionDivider } from "@/src/components/ui/section-divider"
 import { ClientLogoStrip } from "@/src/components/sections/client-logo-strip"
 import { HowItWorksSection } from "@/src/components/sections/how-it-works-section"
 import { UseCasesSection } from "@/src/components/sections/use-cases-section"
@@ -10,8 +13,7 @@ import { WhyChooseUsSection } from "@/src/components/sections/why-choose-us-sect
 import { AboutFounderSection } from "@/src/components/sections/about-founder-section"
 import { ContactSection } from "@/src/components/sections/contact-section"
 import { Footer } from "@/src/components/sections/footer"
-import { Navigation } from "@/src/components/ui/navigation"
-import { BackgroundPattern } from "@/src/components/ui/background-pattern"
+
 
 export default function HomePage() {
   // Smooth scroll implementation

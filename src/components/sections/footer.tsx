@@ -16,12 +16,11 @@ export function Footer() {
   const legalLinks = [
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms of Service", href: "/terms" },
-    { name: "Cookie Policy", href: "/cookies" },
   ]
 
   const socialLinks = [
-    { name: "LinkedIn", href: "#", icon: <Linkedin className="w-5 h-5" /> },
-    { name: "Twitter", href: "#", icon: <Twitter className="w-5 h-5" /> },
+    { name: "LinkedIn", href: "https://www.linkedin.com/in/hus3ain/", target: "_blank", rel: "noopener noreferrer", icon: <Linkedin className="w-5 h-5" /> },
+    { name: "Twitter", href: "https://x.com/hus3ain53", target: "_blank", rel: "noopener noreferrer", icon: <Twitter className="w-5 h-5" /> },
   ]
 
   return (
@@ -78,7 +77,7 @@ export function Footer() {
                   <li key={index}>
                     <a
                       href={link.href}
-                      className="text-white/70 hover:text-gold transition-colors duration-300 hover:translate-x-1 transform inline-block"
+                      className="text-white/70 hover:text-gold transition-colors duration-300 hover:translate-x-1 transform inline-block focus:outline-none focus:text-gold"
                     >
                       {link.name}
                     </a>
@@ -95,7 +94,7 @@ export function Footer() {
                   <li key={index}>
                     <a
                       href={link.href}
-                      className="text-white/70 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block"
+                      className="text-white/70 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block focus:outline-none focus:text-gold"
                     >
                       {link.name}
                     </a>
@@ -111,7 +110,9 @@ export function Footer() {
                     <a
                       key={index}
                       href={social.href}
-                      className="p-2 rounded-lg bg-white/5 border border-white/10 text-white/70 hover:text-gold hover:bg-white/10 hover:border-gold/20 transition-all duration-300 hover:scale-110"
+                      target={social.target}
+                      rel={social.rel}
+                      className="p-2 rounded-lg bg-white/5 border border-white/10 text-white/70 hover:text-gold hover:bg-white/10 hover:border-gold/20 transition-all duration-300 hover:scale-110 focus:outline-none focus:text-gold focus:bg-white/10 focus:border-gold/20"
                       aria-label={social.name}
                     >
                       {social.icon}
@@ -128,13 +129,6 @@ export function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             {/* Copyright */}
             <div className="text-white/50 text-sm">© {currentYear} Malak Star AI. All rights reserved.</div>
-
-            {/* Additional Info */}
-            <div className="flex items-center gap-6 text-sm text-white/50">
-              <span>Built with precision</span>
-              <div className="w-px h-4 bg-white/20" />
-              <span>Powered by AI</span>
-            </div>
           </div>
         </div>
       </div>
