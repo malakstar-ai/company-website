@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/src/components/ui/button"
 import { ArrowRight } from "lucide-react"
-import { AIBackgroundAnimation } from "@/src/components/ui/ai-background-animation"
 
 export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false)
@@ -61,9 +60,6 @@ export function HeroSection() {
 
   return (
     <div className="relative z-10 flex items-center justify-center min-h-screen px-6">
-      {/* AI Background Animation */}
-      <AIBackgroundAnimation />
-
       {/* Hidden element for measuring text widths */}
       <span
         ref={measureRef}

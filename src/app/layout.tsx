@@ -1,8 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { EnhancedBackground } from "@/src/components/ui/enhanced-background"
-import { FloatingOrbs } from "@/src/components/ui/floating-orbs"
-import { ParallaxBackground } from "@/src/components/ui/parallax-background"
+import { AIBackgroundAnimation } from "@/src/components/ui/ai-background-animation"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -25,11 +23,10 @@ export default function RootLayout({
         <link rel="icon" href="/circle-logo.png" />
         <link rel="apple-touch-icon" href="/circle-logo.png" />
       </head>
-      <body className="font-satoshi" suppressHydrationWarning={true}>
-        <EnhancedBackground />
-        <FloatingOrbs />
-        <ParallaxBackground />
-        <div className="relative z-10">{children}</div>
+      <body className="font-satoshi bg-black" suppressHydrationWarning={true}>
+        {/* Global AI Background Animation */}
+        <AIBackgroundAnimation />
+        <div className="relative z-20">{children}</div>
       </body>
     </html>
   )

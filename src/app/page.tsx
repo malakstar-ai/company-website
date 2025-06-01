@@ -1,11 +1,9 @@
 "use client"
 
 import { useEffect } from "react"
-import { BackgroundPattern } from "@/src/components/ui/background-pattern"
 import { Navigation } from "@/src/components/ui/navigation"
 import { HeroSection } from "@/src/components/sections/hero-section"
 import { SocialProofSection } from "@/src/components/sections/social-proof-section"
-import { SectionDivider } from "@/src/components/ui/section-divider"
 import { ClientLogoStrip } from "@/src/components/sections/client-logo-strip"
 import { HowItWorksSection } from "@/src/components/sections/how-it-works-section"
 import { UseCasesSection } from "@/src/components/sections/use-cases-section"
@@ -13,7 +11,6 @@ import { WhyChooseUsSection } from "@/src/components/sections/why-choose-us-sect
 import { AboutFounderSection } from "@/src/components/sections/about-founder-section"
 import { ContactSection } from "@/src/components/sections/contact-section"
 import { Footer } from "@/src/components/sections/footer"
-
 
 export default function HomePage() {
   // Smooth scroll implementation
@@ -34,52 +31,45 @@ export default function HomePage() {
     <main className="relative">
       <Navigation />
 
-      {/* Hero Section - Dark */}
-      <section id="hero" className="relative bg-black">
-        <BackgroundPattern variant="dark" />
+      {/* Hero Section */}
+      <section id="hero" className="relative">
         <HeroSection />
       </section>
 
-      {/* Social Proof Section - Dark */}
-      <section id="social-proof" className="relative bg-black">
-        <BackgroundPattern variant="dark" />
+      {/* Social Proof Section */}
+      <section id="social-proof" className="relative">
         <SocialProofSection />
       </section>
 
       {/* Client Logo Strip */}
       <ClientLogoStrip />
 
-      {/* How It Works Section - Dark */}
-      <section id="how-it-works" className="relative bg-[#1A1A1A]">
-        <BackgroundPattern variant="dark" />
+      {/* How It Works Section */}
+      <section id="how-it-works" className="relative">
         <HowItWorksSection />
       </section>
 
-      {/* Use Cases Section - Dark */}
-      <section id="use-cases" className="relative bg-black">
-        <BackgroundPattern variant="dark" />
+      {/* Use Cases Section */}
+      <section id="use-cases" className="relative">
         <UseCasesSection />
       </section>
 
-      {/* Why Choose Us Section - Dark */}
-      <section id="why-choose-us" className="relative bg-[#1A1A1A]">
-        <BackgroundPattern variant="dark" />
+      {/* Why Choose Us Section */}
+      <section id="why-choose-us" className="relative">
         <WhyChooseUsSection />
       </section>
 
-      {/* About Founder Section - Dark */}
-      <section id="about-founder" className="relative bg-black">
-        <BackgroundPattern variant="dark" />
+      {/* About Founder Section */}
+      <section id="about-founder" className="relative">
         <AboutFounderSection />
       </section>
 
-      {/* Contact Section - Dark */}
-      <section id="contact" className="relative bg-[#1A1A1A]">
-        <BackgroundPattern variant="dark" />
+      {/* Contact Section */}
+      <section id="contact" className="relative">
         <ContactSection />
       </section>
 
-      {/* Footer - Dark */}
+      {/* Footer */}
       <Footer />
     </main>
   )

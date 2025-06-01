@@ -104,10 +104,10 @@ export function HowItWorksSection() {
   }, [isHydrated])
 
   return (
-    <section className="relative bg-[#1A1A1A]">
+    <section className="relative">
       <div ref={sectionRef} className="relative z-10">
         {/* Fixed Header */}
-        <div className="sticky top-0 pt-24 pb-8 bg-[#1A1A1A] z-20">
+        <div className="sticky top-0 pt-24 pb-8 z-20">
           <div className="container mx-auto px-6">
             <div className="text-center">
               <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-[#D4AF37]/20 bg-[#D4AF37]/10">
@@ -172,7 +172,7 @@ export function HowItWorksSection() {
                                   style={{ backgroundColor: step.color }}
                                 />
                               </div>
-                              <p className="text-white/70">{detail}</p>
+                              <p className="text-white/95 text-md font-bold">{detail}</p>
                             </div>
                           ))}
                         </div>
