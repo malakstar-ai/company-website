@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/src/components/ui/button"
+import Image from "next/image"
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -35,10 +36,16 @@ export function Navigation() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gold to-gold/70 flex items-center justify-center">
-                <span className="text-black font-semibold text-lg">EA</span>
+              <div className="w-10 h-10 rounded-full overflow-hidden bg-transparent">
+                <Image 
+                  src="/circle-logo.png" 
+                  alt="Malak Star AI" 
+                  width={40} 
+                  height={40}
+                  className="w-full h-full object-cover mix-blend-screen filter brightness-110 contrast-125"
+                />
               </div>
-              <span className="ml-3 text-white font-light text-xl">Elite AI</span>
+              <span className="ml-3 text-white font-light text-xl">Malak Star AI</span>
             </div>
 
             {/* Desktop Navigation */}
@@ -52,9 +59,11 @@ export function Navigation() {
                   {link.name}
                 </a>
               ))}
-              <Button size="sm" variant="outline" className="ml-4 border-gold text-gold hover:bg-gold hover:text-black">
-                Book a Call
-              </Button>
+              <a href="#contact">
+                <Button size="sm" variant="outline" className="ml-4 border-gold text-gold hover:bg-gold hover:text-black">
+                  Book a Call
+                </Button>
+              </a>
             </div>
 
             {/* Mobile Menu Button */}
@@ -86,9 +95,11 @@ export function Navigation() {
               {link.name}
             </a>
           ))}
-          <Button size="lg" variant="outline" className="mt-8 border-gold text-gold hover:bg-gold hover:text-black">
-            Book a Call
-          </Button>
+          <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
+            <Button size="lg" variant="outline" className="mt-8 border-gold text-gold hover:bg-gold hover:text-black">
+              Book a Call
+            </Button>
+          </a>
         </div>
       </div>
     </>

@@ -126,24 +126,6 @@ export function HowItWorksSection() {
           </div>
         </div>
 
-        {/* Step Indicators - Fixed on the left */}
-        {isHydrated && (
-          <div className="fixed left-8 top-1/2 transform -translate-y-1/2 z-30 hidden lg:block">
-            <div className="flex flex-col gap-8">
-              {steps.map((step, index) => (
-                <div
-                  key={index}
-                  className={`w-2 h-16 rounded-full transition-all duration-500`}
-                  style={{
-                    backgroundColor: index === activeStep ? step.color : "#333",
-                    opacity: index === activeStep ? 1 : 0.5,
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-        )}
-
         {/* Cards - Each in their own full-height section */}
         <div ref={cardsRef} className="relative">
           {steps.map((step, index) => (

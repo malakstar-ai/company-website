@@ -101,13 +101,15 @@ export function HeroSection() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <Button
-            size="lg"
-            className="group px-8 py-6 text-sm font-medium bg-gold hover:bg-gold/90 text-black rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-gold/20 hover:scale-105"
-          >
-            Book a Discovery Call
-            <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-          </Button>
+          <a href="#contact">
+            <Button
+              size="lg"
+              className="group px-8 py-6 text-sm font-medium bg-gold hover:bg-gold/90 text-black rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-gold/20 hover:scale-105"
+            >
+              Book a Discovery Call
+              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </a>
         </div>
       </div>
     </div>

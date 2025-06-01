@@ -1,6 +1,7 @@
 "use client"
 
 import { Mail, Phone, MapPin, Linkedin, Twitter } from "lucide-react"
+import Image from "next/image"
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -41,11 +42,17 @@ export function Footer() {
             {/* Logo & Brand */}
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gold to-gold/70 flex items-center justify-center">
-                  <span className="text-black font-semibold text-lg">EA</span>
+                <div className="w-10 h-10 rounded-full overflow-hidden bg-transparent">
+                  <Image 
+                    src="/circle-logo.png" 
+                    alt="Malak Star AI" 
+                    width={40} 
+                    height={40}
+                    className="w-full h-full object-cover mix-blend-screen filter brightness-110 contrast-125"
+                  />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-light text-white">Elite AI Agency</h3>
+                  <h3 className="text-2xl font-light text-white">Malak Star AI</h3>
                   <p className="text-sm text-white/60">Intelligent Systems for Ambitious Businesses</p>
                 </div>
               </div>
@@ -58,15 +65,7 @@ export function Footer() {
               <div className="space-y-3">
                 <div className="flex items-center gap-3 text-white/70">
                   <Mail className="w-4 h-4 text-gold" />
-                  <span>hello@eliteai.agency</span>
-                </div>
-                <div className="flex items-center gap-3 text-white/70">
-                  <Phone className="w-4 h-4 text-gold" />
-                  <span>+1 (555) 123-4567</span>
-                </div>
-                <div className="flex items-center gap-3 text-white/70">
-                  <MapPin className="w-4 h-4 text-gold" />
-                  <span>San Francisco, CA</span>
+                  <span>hussain.b@malakstar.com</span>
                 </div>
               </div>
             </div>
@@ -128,7 +127,7 @@ export function Footer() {
         <div className="py-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             {/* Copyright */}
-            <div className="text-white/50 text-sm">© {currentYear} Elite AI Agency. All rights reserved.</div>
+            <div className="text-white/50 text-sm">© {currentYear} Malak Star AI. All rights reserved.</div>
 
             {/* Additional Info */}
             <div className="flex items-center gap-6 text-sm text-white/50">

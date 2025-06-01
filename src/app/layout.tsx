@@ -1,9 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import "./globals.css"
-
-const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Malak Star AI",
@@ -17,7 +14,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <head>
+        <link
+          href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap"
+          rel="stylesheet"
+        />
+        <link rel="icon" href="/circle-logo.png" />
+        <link rel="apple-touch-icon" href="/circle-logo.png" />
+      </head>
+      <body className="font-satoshi" suppressHydrationWarning={true}>
+        {children}
+      </body>
     </html>
   )
 }

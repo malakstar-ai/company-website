@@ -130,13 +130,15 @@ export function WhyChooseUsSection() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            <Button
-              size="lg"
-              className="group px-8 py-6 text-sm font-medium bg-gold hover:bg-gold/90 text-black rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-gold/20 hover:scale-105"
-            >
-              Let's engineer your AI advantage
-              <Zap className="w-4 h-4 ml-2 group-hover:rotate-12 transition-transform duration-300" />
-            </Button>
+            <a href="#contact">
+              <Button
+                size="lg"
+                className="group px-8 py-6 text-sm font-medium bg-gold hover:bg-gold/90 text-black rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-gold/20 hover:scale-105"
+              >
+                Let's engineer your AI advantage
+                <Zap className="w-4 h-4 ml-2 group-hover:rotate-12 transition-transform duration-300" />
+              </Button>
+            </a>
           </div>
         </div>
       </div>
