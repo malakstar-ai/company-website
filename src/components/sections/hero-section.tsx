@@ -12,7 +12,7 @@ export function HeroSection() {
   const [isAnimating, setIsAnimating] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const rotatingTexts = ["Revolutionize", "Transform", "Accelerate", "Optimize"]
+  const rotatingTexts = ["Increase Sales", "Boost Marketing", "Optimize Operations", "Scale Delivery"]
 
   useEffect(() => {
     setIsVisible(true)
@@ -48,7 +48,7 @@ export function HeroSection() {
           }`}
         >
           <div className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-          <span className="text-xs font-medium text-white/80 tracking-wide">Elite AI Solutions</span>
+          <span className="text-xs font-medium text-white/80 tracking-wide">Malak Star AI</span>
         </div>
 
         {/* Clean Text Animation */}
@@ -83,7 +83,7 @@ export function HeroSection() {
               </span>
             ))}
           </span>{" "}
-          Your Business
+        For Your Business
         </h1>
 
         {/* Subheadline */}
@@ -92,7 +92,7 @@ export function HeroSection() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          For elite businesses ready to scale sales, operations, and delivery with intelligence.
+          We design high-performance, fully integrated AI systems tailored to your operations — from sales to service delivery. Built exclusively for forward-thinking B2B teams.
         </p>
 
         {/* CTA Button */}

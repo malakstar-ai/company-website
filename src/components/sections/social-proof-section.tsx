@@ -45,8 +45,8 @@ export function SocialProofSection() {
   const credibilityPoints = [
     {
       icon: <Zap className="w-6 h-6" />,
-      title: "10x lead response time",
-      description: "Our AI agents engage prospects instantly, 24/7/365",
+      title: "10x your calls booked",
+      description: "Our AI agents find leads and book calls for you, 24/7/365",
       metric: `${counters.leads}x`,
     },
     {
@@ -75,7 +75,7 @@ export function SocialProofSection() {
       <div className="text-center mb-20">
         <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-white/10 bg-white/5">
           <div className="w-1.5 h-1.5 rounded-full bg-gold" />
-          <span className="text-xs font-medium text-white/80">For Elite Businesses</span>
+          <span className="text-xs font-medium text-white/80">For Future-Proof Businesses</span>
         </div>
 
         <h2 className="text-4xl font-light text-white mb-6">

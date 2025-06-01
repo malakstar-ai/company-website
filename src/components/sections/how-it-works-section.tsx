@@ -17,7 +17,8 @@ export function HowItWorksSection() {
       description: "We audit your workflows & pain points",
       details: [
         "Comprehensive business process analysis",
-        "Identification of automation opportunities",
+        "Understanding current process of doing tasks manually",
+        "Identification of automation opportunities that drive ROI",
         "Workflow mapping and bottleneck detection",
         "Data flow assessment and optimization planning",
       ],
@@ -115,11 +116,11 @@ export function HowItWorksSection() {
               </div>
 
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-                How It <span className="text-[#D4AF37]">Works</span>
+                We Start With The <span className="text-[#D4AF37]">Basics</span>
               </h2>
 
               <p className="text-lg text-white/60 max-w-2xl mx-auto">
-                A proven methodology that transforms your business operations with intelligent automation
+                A proven, done-for-you path that transforms your business operations with intelligent automation
               </p>
             </div>
           </div>

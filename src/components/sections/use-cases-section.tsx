@@ -29,7 +29,7 @@ export function UseCasesSection() {
       icon: <Mail className="w-6 h-6" />,
       title: "Sales Agent",
       description: "Accelerate your revenue pipeline",
-      capabilities: ["Cold email campaigns", "Intelligent follow-ups", "CRM synchronization", "Lead qualification"],
+      capabilities: ["Lead sourcing and enrichment", "Intelligent follow-ups", "CRM synchronization", "Lead qualification"],
     },
     {
       icon: <Megaphone className="w-6 h-6" />,
@@ -54,6 +54,12 @@ export function UseCasesSection() {
       title: "Knowledge Agent",
       description: "Empower your team",
       capabilities: ["Intelligent search", "SOP management", "Team support", "Knowledge base"],
+    },
+    {
+      icon: <Brain className="w-6 h-6" />,
+      title: "Insights Agent",
+      description: "Unlock data-driven decision-making",
+      capabilities: ["Live reporting dashboards", "Meeting & call summarization", "Automated performance snapshots", "KPI & trend detection"],
     },
   ]
 
@@ -116,6 +122,11 @@ export function UseCasesSection() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* "And much more..." text */}
+      <div className="text-right mt-12 pr-10 mr-12">
+        <p className="text-white/40 italic">and much more...</p>
       </div>
     </div>
   )

@@ -6,9 +6,8 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Elite AI Agency - Custom AI Agents That Revolutionize Your Business",
-  description: "For elite businesses ready to scale sales, operations, and delivery with intelligence.",
-    generator: 'v0.dev'
+  title: "Malak Star AI",
+  description: "For B2B businesses ready to scale sales, operations, and delivery with intelligence.",
 }
 
 export default function RootLayout({

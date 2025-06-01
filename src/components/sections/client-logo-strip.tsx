@@ -32,20 +32,20 @@ export function ClientLogoStrip() {
   }, [])
 
   const logos = [
-    { name: "Goldman Sachs", initial: "GS" },
-    { name: "Morgan Stanley", initial: "MS" },
-    { name: "BlackRock", initial: "BR" },
-    { name: "McKinsey", initial: "MC" },
-    { name: "Boston Consulting", initial: "BCG" },
-    { name: "JP Morgan", initial: "JPM" },
-    { name: "Deloitte", initial: "DL" },
+    { name: "Notion", initial: "N" },
+    { name: "Shopify", initial: "S" },
+    { name: "Stripe", initial: "S" },
+    { name: "Airtable", initial: "A" },
+    { name: "N8N", initial: "N" },
+    { name: "Figma", initial: "F" },
+    { name: "Make.com", initial: "M" },
   ]
 
   return (
     <section className="py-16 bg-black border-t border-b border-white/10 relative overflow-hidden">
       <div className="container mx-auto px-6 mb-8">
         <p className="text-center text-white/40 text-sm uppercase tracking-widest font-light mb-8">
-          Trusted by industry leaders
+          We work with founders, operators, and teams serious about transformation
         </p>
       </div>
 
@@ -75,7 +75,7 @@ export function ClientLogoStrip() {
 
       <div className="container mx-auto px-6 mt-8">
         <p className="text-center text-white/60 font-light italic">
-          "Transforming how elite businesses operate through intelligent automation"
+          "We make B2B businesses fully AI-powered and future-proof"
         </p>
       </div>
     </section>
