@@ -59,11 +59,11 @@ export function HeroSection() {
   }, [activeIndex])
 
   return (
-    <div className="relative z-10 flex items-center justify-center min-h-screen px-6">
+    <div className="relative z-10 flex items-center justify-center min-h-screen px-4 md:px-6">
       {/* Hidden element for measuring text widths */}
       <span
         ref={measureRef}
-        className="absolute opacity-0 pointer-events-none text-4xl md:text-5xl lg:text-6xl font-medium"
+        className="absolute opacity-0 pointer-events-none text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium"
         style={{ top: "-9999px" }}
         aria-hidden="true"
       />
@@ -71,17 +71,17 @@ export function HeroSection() {
       <div className="max-w-4xl mx-auto text-center relative z-10">
         {/* Badge */}
         <div
-          className={`inline-flex items-center gap-2 px-4 py-2 mb-10 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-1000 ${
+          className={`inline-flex items-center gap-2 px-3 py-2 md:px-4 md:py-2 mb-6 md:mb-10 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-1000 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          <div className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+          <div className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-gold animate-pulse" />
           <span className="text-xs font-medium text-white/80 tracking-wide">Malak Star AI</span>
         </div>
 
         {/* Enhanced Text Animation */}
         <h1
-          className={`text-4xl md:text-5xl lg:text-6xl font-light text-white mb-8 leading-tight transition-all duration-1000 delay-200 ${
+          className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-white mb-6 md:mb-8 leading-tight transition-all duration-1000 delay-200 px-4 md:px-0 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
@@ -118,7 +118,7 @@ export function HeroSection() {
 
         {/* Subheadline */}
         <p
-          className={`text-base md:text-lg text-white/70 mb-12 max-w-2xl mx-auto leading-relaxed transition-all duration-1000 delay-400 ${
+          className={`text-sm md:text-base lg:text-lg text-white/70 mb-8 md:mb-12 max-w-xl md:max-w-2xl mx-auto leading-relaxed transition-all duration-1000 delay-400 px-6 md:px-0 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
@@ -134,7 +134,7 @@ export function HeroSection() {
           <a href="#contact">
             <Button
               size="lg"
-              className="group px-8 py-6 text-sm font-medium bg-gold hover:bg-gold/90 text-black rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-gold/20 hover:scale-105"
+              className="group px-6 py-4 md:px-8 md:py-6 text-sm font-medium bg-gold hover:bg-gold/90 text-black rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-gold/20 hover:scale-105"
             >
               Book a Discovery Call
               <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />

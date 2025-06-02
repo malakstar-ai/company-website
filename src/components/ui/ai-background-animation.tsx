@@ -64,20 +64,24 @@ export function AIBackgroundAnimation() {
 
     // Initialize enhanced data streams
     const characters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz{}[]();=><"
-    for (let i = 0; i < 60; i++) {
+    const isMobile = window.innerWidth < 768
+    const streamCount = isMobile ? 40 : 60
+    
+    for (let i = 0; i < streamCount; i++) {
       streams.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         speed: Math.random() * 1.5 + 0.3,
         opacity: Math.random() * 0.4 + 0.1,
         char: characters[Math.floor(Math.random() * characters.length)],
-        size: Math.random() * 8 + 10,
+        size: Math.random() * (isMobile ? 6 : 8) + (isMobile ? 8 : 10),
         drift: Math.random() * 0.5 - 0.25,
       })
     }
 
     // Initialize enhanced neural nodes
-    for (let i = 0; i < 20; i++) {
+    const nodeCount = isMobile ? 12 : 20
+    for (let i = 0; i < nodeCount; i++) {
       nodes.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -90,7 +94,8 @@ export function AIBackgroundAnimation() {
     }
 
     // Initialize floating particles
-    for (let i = 0; i < 40; i++) {
+    const particleCount = isMobile ? 25 : 40
+    for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -143,7 +148,7 @@ export function AIBackgroundAnimation() {
           stream.y = -50
           stream.x = Math.random() * canvas.width
           stream.char = characters[Math.floor(Math.random() * characters.length)]
-          stream.size = Math.random() * 8 + 10
+          stream.size = Math.random() * (isMobile ? 6 : 8) + (isMobile ? 8 : 10)
         }
 
         // Keep streams within bounds
@@ -291,13 +296,34 @@ export function AIBackgroundAnimation() {
     ]
 
     const interval = setInterval(() => {
-      // More dynamic zone placement
+      // More dynamic zone placement optimized for mobile
+      const isMobile = window.innerWidth < 768
       const zones = [
-        { x: 30, y: 80, width: 220, height: 120 }, // Top left
-        { x: window.innerWidth - 270, y: 80, width: 220, height: 120 }, // Top right
-        { x: 30, y: window.innerHeight - 220, width: 220, height: 120 }, // Bottom left
-        { x: window.innerWidth - 270, y: window.innerHeight - 220, width: 220, height: 120 }, // Bottom right
-        // Add middle zones for larger screens
+        { 
+          x: isMobile ? 10 : 30, 
+          y: isMobile ? 60 : 80, 
+          width: isMobile ? 200 : 220, 
+          height: isMobile ? 100 : 120 
+        }, // Top left
+        { 
+          x: window.innerWidth - (isMobile ? 210 : 270), 
+          y: isMobile ? 60 : 80, 
+          width: isMobile ? 200 : 220, 
+          height: isMobile ? 100 : 120 
+        }, // Top right
+        { 
+          x: isMobile ? 10 : 30, 
+          y: window.innerHeight - (isMobile ? 160 : 220), 
+          width: isMobile ? 200 : 220, 
+          height: isMobile ? 100 : 120 
+        }, // Bottom left
+        { 
+          x: window.innerWidth - (isMobile ? 210 : 270), 
+          y: window.innerHeight - (isMobile ? 160 : 220), 
+          width: isMobile ? 200 : 220, 
+          height: isMobile ? 100 : 120 
+        }, // Bottom right
+        // Add center zones only for larger screens
         ...(window.innerWidth > 1200 ? [
           { x: window.innerWidth / 2 - 110, y: 60, width: 220, height: 100 }, // Top center
           { x: window.innerWidth / 2 - 110, y: window.innerHeight - 180, width: 220, height: 100 }, // Bottom center
@@ -308,7 +334,7 @@ export function AIBackgroundAnimation() {
 
       const newTask = {
         id: Date.now() + Math.random(),
-        x: zone.x + Math.random() * (zone.width - 180),
+        x: zone.x + Math.random() * (zone.width - (isMobile ? 160 : 180)),
         y: zone.y + Math.random() * (zone.height - 60),
         task: tasks[Math.floor(Math.random() * tasks.length)],
         progress: 0,
@@ -389,19 +415,19 @@ export function AIBackgroundAnimation() {
       ))}
 
       {/* Enhanced processing indicators */}
-      <div className="absolute top-24 right-24 z-10">
-        <div className="flex items-center gap-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-lg px-4 py-3 shadow-lg">
-          <div className="w-2 h-2 bg-gold/60 rounded-full animate-pulse" />
+      <div className="absolute top-16 md:top-24 right-4 md:right-24 z-10">
+        <div className="flex items-center gap-2 md:gap-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-md md:rounded-lg px-3 py-2 md:px-4 md:py-3 shadow-lg">
+          <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-gold/60 rounded-full animate-pulse" />
           <span className="text-white/50 text-xs font-medium">Neural processing</span>
         </div>
       </div>
 
-      <div className="absolute bottom-24 left-24 z-10">
-        <div className="flex items-center gap-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-lg px-4 py-3 shadow-lg">
+      <div className="absolute bottom-16 md:bottom-24 left-4 md:left-24 z-10">
+        <div className="flex items-center gap-2 md:gap-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-md md:rounded-lg px-3 py-2 md:px-4 md:py-3 shadow-lg">
           <div className="flex gap-1">
-            <div className="w-1 h-4 bg-blue-400/60 rounded animate-pulse" style={{ animationDelay: "0ms" }} />
-            <div className="w-1 h-4 bg-blue-400/60 rounded animate-pulse" style={{ animationDelay: "300ms" }} />
-            <div className="w-1 h-4 bg-blue-400/60 rounded animate-pulse" style={{ animationDelay: "600ms" }} />
+            <div className="w-0.5 h-3 md:w-1 md:h-4 bg-blue-400/60 rounded animate-pulse" style={{ animationDelay: "0ms" }} />
+            <div className="w-0.5 h-3 md:w-1 md:h-4 bg-blue-400/60 rounded animate-pulse" style={{ animationDelay: "300ms" }} />
+            <div className="w-0.5 h-3 md:w-1 md:h-4 bg-blue-400/60 rounded animate-pulse" style={{ animationDelay: "600ms" }} />
           </div>
           <span className="text-white/50 text-xs font-medium">Data analysis</span>
         </div>

@@ -29,14 +29,14 @@ export function Navigation() {
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? "py-3 bg-black/90 backdrop-blur-md shadow-md" : "py-6 bg-transparent"
+          isScrolled ? "py-2 md:py-3 bg-black/90 backdrop-blur-md shadow-md" : "py-4 md:py-6 bg-transparent"
         }`}
       >
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 md:px-6">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-full overflow-hidden bg-transparent">
+              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden bg-transparent">
                 <Image 
                   src="/circle-logo.png" 
                   alt="Malak Star AI" 
@@ -45,7 +45,7 @@ export function Navigation() {
                   className="w-full h-full object-cover mix-blend-screen filter brightness-110 contrast-125"
                 />
               </div>
-              <span className="ml-3 text-white font-light text-xl">Malak Star AI</span>
+              <span className="ml-2 md:ml-3 text-white font-light text-lg md:text-xl">Malak Star AI</span>
             </div>
 
             {/* Desktop Navigation */}
@@ -68,11 +68,11 @@ export function Navigation() {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden text-white focus:outline-none focus:text-gold"
+              className="md:hidden text-white focus:outline-none focus:text-gold p-2"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle menu"
             >
-              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMobileMenuOpen ? <X className="h-5 w-5 md:h-6 md:w-6" /> : <Menu className="h-5 w-5 md:h-6 md:w-6" />}
             </button>
           </div>
         </div>

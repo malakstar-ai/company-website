@@ -242,24 +242,24 @@ export function ContactSection() {
   }
 
   return (
-    <div className="container mx-auto px-6 py-24 relative z-10">
+    <div className="container mx-auto px-4 md:px-6 py-16 md:py-24 relative z-10">
       {/* Section Header */}
-      <div className="text-center mb-16">
-        <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-white/10 bg-white/5">
-          <div className="w-1.5 h-1.5 rounded-full bg-gold" />
+      <div className="text-center mb-12 md:mb-16">
+        <div className="inline-flex items-center gap-2 px-3 py-2 md:px-4 md:py-2 mb-4 md:mb-6 rounded-full border border-white/10 bg-white/5">
+          <div className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-gold" />
           <span className="text-xs font-medium text-white/80">Ready to Transform</span>
         </div>
 
-        <h2 className="text-4xl font-light text-white mb-6 leading-tight">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-light text-white mb-4 md:mb-6 leading-tight px-4 md:px-0">
           You're one step away from <span className="text-gold">transforming your business</span> with AI
         </h2>
 
-        <p className="text-lg text-white/60 max-w-2xl mx-auto">Tell us about your business and AI needs</p>
+        <p className="text-sm md:text-base lg:text-lg text-white/60 max-w-xl md:max-w-2xl mx-auto px-4 md:px-0">Tell us about your business and AI needs</p>
       </div>
 
       <div className="max-w-3xl mx-auto">
         {/* Progress Bar */}
-        <div className="mb-8">
+        <div className="mb-6 md:mb-8">
           <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
             <div
               className="h-full bg-gold transition-all duration-500 ease-out"
@@ -274,7 +274,7 @@ export function ContactSection() {
 
         {/* Form Container */}
         <div
-          className={`p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-xl transition-all duration-500 ${
+          className={`p-4 md:p-8 rounded-2xl md:rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-xl transition-all duration-500 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
@@ -289,17 +289,17 @@ export function ContactSection() {
                     : "-translate-x-full opacity-0"
               }`}
             >
-              <h3 className="text-2xl font-light text-white mb-6">Tell us about yourself</h3>
+              <h3 className="text-xl md:text-2xl font-light text-white mb-4 md:mb-6">Tell us about yourself</h3>
 
               <Form {...step1Form}>
-                <form onSubmit={step1Form.handleSubmit(onStep1Submit)} className="space-y-6">
+                <form onSubmit={step1Form.handleSubmit(onStep1Submit)} className="space-y-4 md:space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FormField
                       control={step1Form.control}
                       name="firstName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-white/80">First Name</FormLabel>
+                          <FormLabel className="text-white/80 text-sm">First Name</FormLabel>
                           <FormControl>
                             <Input
                               placeholder="John"
@@ -316,7 +316,7 @@ export function ContactSection() {
                       name="lastName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-white/80">Last Name (Optional)</FormLabel>
+                          <FormLabel className="text-white/80 text-sm">Last Name (Optional)</FormLabel>
                           <FormControl>
                             <Input
                               placeholder="Doe"
@@ -332,7 +332,7 @@ export function ContactSection() {
 
                   <Button
                     type="submit"
-                    className="w-full group px-6 py-6 text-sm font-medium bg-gold hover:bg-gold/90 text-black rounded-full transition-all duration-300 hover:shadow-lg"
+                    className="w-full group px-6 py-4 md:py-6 text-sm font-medium bg-gold hover:bg-gold/90 text-black rounded-full transition-all duration-300 hover:shadow-lg"
                   >
                     Continue
                     <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
